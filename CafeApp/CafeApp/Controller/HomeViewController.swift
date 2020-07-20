@@ -21,12 +21,18 @@ class HomeViewController : UIViewController {
   //MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    collectionView.backgroundColor = .systemBackground
     setNavigation()
     setUI()
     setConstraint()
     
   }
   
+  //MARK: - struct
+  struct Standard {
+    static let standard : CGFloat = 10
+    static let inset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+  }
   //MARK: - setNavigation()
   private func setNavigation() {
     let titleLabel = UILabel()
@@ -40,10 +46,10 @@ class HomeViewController : UIViewController {
     )
      navigationItem.titleView = titleLabel
     
-    searchController.obscuresBackgroundDuringPresentation = false // 표시된 뷰를 흐리게 하기. 현재뷰를 흐리게 하지 않고 싶은것.
+    searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "검색"
     navigationItem.searchController = searchController
-    definesPresentationContext = true // UISearchController 가 활성되어 있는 동안 사용자가 다른 뷰 컨트롤러로 이동하면 search bar 가 화면에 남아 있지 않도록 한다.
+    definesPresentationContext = true
     
     
   }
@@ -77,11 +83,29 @@ extension HomeViewController : UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return UICollectionViewCell()
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+    cell.backgroundColor = .yellow
+    return cell
   }
 }
 
-
+  //MARK: - UICollectionViewDelegateFlowLayout 
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    Standard.standard
+  }
   
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    Standard.standard
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    Standard.inset
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width = collectionView.frame.width - Standard.inset.left - Standard.inset.right - Standard.standard
+    let cellSize = width / 2
+    return CGSize(width: cellSize, height: cellSize)
+  }
 }
