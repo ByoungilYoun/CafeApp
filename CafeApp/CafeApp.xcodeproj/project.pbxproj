@@ -58,6 +58,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		0F24C98324C5C30400AEA09B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		0F716C3824C5A6AB005E6681 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +84,7 @@
 		0F716C4324C5A6AB005E6681 /* CafeApp */ = {
 			isa = PBXGroup;
 			children = (
+				0F24C98324C5C30400AEA09B /* Cell */,
 				0F716C4424C5A6AB005E6681 /* AppDelegate.swift */,
 				0F24C97A24C5ABDC00AEA09B /* Controller */,
 				0F24C97C24C5ABEC00AEA09B /* Resources */,
