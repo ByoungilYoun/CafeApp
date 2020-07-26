@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F156FE624CD570F0035EDBA /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F156FE524CD570F0035EDBA /* Cafe.swift */; };
 		0F24C97924C5AA9500AEA09B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F24C97824C5AA9500AEA09B /* HomeViewController.swift */; };
 		0F24C97E24C5ACA600AEA09B /* CafeList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F24C97D24C5ACA600AEA09B /* CafeList.json */; };
 		0F24C98024C5ACC500AEA09B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F24C97F24C5ACC500AEA09B /* MainTabBarController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F156FE524CD570F0035EDBA /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		0F24C97824C5AA9500AEA09B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0F24C97D24C5ACA600AEA09B /* CafeList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CafeList.json; sourceTree = "<group>"; };
 		0F24C97F24C5ACC500AEA09B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F156FE424CD56F30035EDBA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F156FE524CD570F0035EDBA /* Cafe.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0F24C97A24C5ABDC00AEA09B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				0F716C4424C5A6AB005E6681 /* AppDelegate.swift */,
+				0F156FE424CD56F30035EDBA /* Model */,
 				0F24C98324C5C30400AEA09B /* Cell */,
 				0F24C97A24C5ABDC00AEA09B /* Controller */,
 				0F24C97C24C5ABEC00AEA09B /* Resources */,
@@ -170,6 +181,7 @@
 			files = (
 				0F24C98724C5C3A800AEA09B /* CollectionViewCell.swift in Sources */,
 				0F716C4524C5A6AB005E6681 /* AppDelegate.swift in Sources */,
+				0F156FE624CD570F0035EDBA /* Cafe.swift in Sources */,
 				0F24C98024C5ACC500AEA09B /* MainTabBarController.swift in Sources */,
 				0F24C97924C5AA9500AEA09B /* HomeViewController.swift in Sources */,
 				0F24C98224C5AD5D00AEA09B /* MapViewController.swift in Sources */,

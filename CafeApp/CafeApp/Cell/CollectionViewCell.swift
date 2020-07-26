@@ -13,8 +13,8 @@ class CollectionViewCell : UICollectionViewCell {
   static let identifier = "CollectionViewCell"
   private let imageView = UIImageView()
   let titleLabel = UILabel()
-  private let descriptionLabel = UILabel()
-  private let heartButton = UIButton()
+  let descriptionLabel = UILabel()
+  let heartButton = UIButton()
   
   //MARK: - init
   override init(frame: CGRect) {
@@ -22,7 +22,6 @@ class CollectionViewCell : UICollectionViewCell {
     contentView.backgroundColor = .systemBackground
     setUI()
     setConstraint()
-    
   }
   
   required init?(coder: NSCoder) {

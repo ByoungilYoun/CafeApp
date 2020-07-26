@@ -58,7 +58,7 @@ class HomeViewController : UIViewController {
   private func setUI() {
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
     view.addSubview(collectionView)
   }
   
@@ -83,8 +83,7 @@ extension HomeViewController : UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    cell.backgroundColor = .yellow
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath)
     return cell
   }
 }
