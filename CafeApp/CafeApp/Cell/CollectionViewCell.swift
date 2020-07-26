@@ -16,6 +16,7 @@ class CollectionViewCell : UICollectionViewCell {
   let descriptionLabel = UILabel()
   let heartButton = UIButton()
   
+  private var favoriteActionHandler : ((CollectionViewCell, Bool) -> ())?
   //MARK: - init
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -31,14 +32,14 @@ class CollectionViewCell : UICollectionViewCell {
   //MARK: - setUI()
   private func setUI() {
     imageView.contentMode = .scaleToFill
-    imageView.layer.cornerRadius = 5
+    imageView.layer.cornerRadius = 10
     imageView.clipsToBounds = true
     contentView.addSubview(imageView)
     
-    heartButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+    heartButton.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
     heartButton.contentMode = .scaleAspectFit
     heartButton.tintColor = .white
-//    heartButton.addTarget(self, action: <#T##Selector#>, for: .touchUpInside)
+    heartButton.addTarget(self, action: #selector(didTapFavoriteButton(_:)), for: .touchUpInside)
     contentView.addSubview(heartButton)
     
     titleLabel.textAlignment = .left
@@ -77,5 +78,31 @@ class CollectionViewCell : UICollectionViewCell {
       descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
       descriptionLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1)
     ])
+  }
+  
+  //MARK: - @objc func didTapFavoriteButton
+  @objc private func didTapFavoriteButton (_ sender : UIButton) {
+    sender.isSelected.toggle()
+    UIView.animate(withDuration: 0.35) {
+      sender.tintColor = sender.isSelected ? .systemPink : .white
+    }
+    favoriteActionHandler!(self, sender.isSelected)
+  }
+  
+  //MARK: - Configure Cell
+  func configure(
+    image : UIImage?,
+    title : String?,
+    description : String?,
+    isFavorite : Bool = false,
+    favoriteActionHandler :
+    ((CollectionViewCell, Bool) -> ())? = nil
+  ) {
+    imageView.image = image
+       titleLabel.text = title
+       descriptionLabel.text = description
+       heartButton.isSelected = isFavorite
+       heartButton.tintColor = isFavorite ? .systemPink : .white
+       self.favoriteActionHandler = favoriteActionHandler
   }
 }

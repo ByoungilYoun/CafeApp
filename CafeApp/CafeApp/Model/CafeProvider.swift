@@ -14,4 +14,11 @@ final class CafeProvider {
   func toggleFavoriteCafe(at index : Int) {
     list[index].isFavorite.toggle()
   }
+  
+  func filteredList(by titles : [String?]) -> [Cafe] {
+    list.filter {
+      cafe in titles.contains {
+        cafe.title.contains($0 ?? "")}
+    }
+  }
 }

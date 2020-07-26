@@ -18,6 +18,14 @@ class HomeViewController : UIViewController {
     return UICollectionView(frame: .zero, collectionViewLayout: layout)
   }()
   
+//  var cafeProvider : CafeProvider!
+  var cafeProvider = CafeProvider()
+  
+  private var filteredCafe : [Cafe] = []
+  private var isFiltering : Bool {
+    let isEmptyText = searchController.searchBar.text?.isEmpty ?? true
+    return searchController.isActive && !isEmptyText
+  }
   //MARK: - LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,6 +56,7 @@ class HomeViewController : UIViewController {
     
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "검색"
+    searchController.searchResultsUpdater = self
     navigationItem.searchController = searchController
     definesPresentationContext = true
     
@@ -79,12 +88,26 @@ class HomeViewController : UIViewController {
   //MARK: - UICollectionViewDataSource
 extension HomeViewController : UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    10
+    return isFiltering ? filteredCafe.count : cafeProvider.list.count
+    
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath)
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell
+    let cafe = isFiltering ? filteredCafe[indexPath.item] : cafeProvider.list[indexPath.item]
+    
+    cell.configure(image: UIImage(named: cafe.title), title: cafe.title, description: cafe.description, isFavorite: cafe.isFavorite, favoriteActionHandler: favoriteActionHandler(cell:isFavorite:))
+    
+    
     return cell
+  }
+  
+  //MARK: - favoriteActionHandler 
+  private func favoriteActionHandler (cell : UICollectionViewCell, isFavorite : Bool) {
+    guard let indexPath = collectionView.indexPath(for: cell) else {return}
+    cafeProvider.toggleFavoriteCafe(at: indexPath.item)
+    guard let index = !isFiltering ? indexPath.item : cafeProvider.list.firstIndex(of: filteredCafe[indexPath.item]) else {return}
+    cafeProvider.toggleFavoriteCafe(at: index)
   }
 }
 
@@ -106,5 +129,17 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
     let width = collectionView.frame.width - Standard.inset.left - Standard.inset.right - Standard.standard
     let cellSize = width / 2
     return CGSize(width: cellSize, height: cellSize)
+  }
+}
+
+//MARK: - UISearchResultsUpdating
+extension HomeViewController : UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    if let text = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) {
+      filteredCafe = cafeProvider.filteredList(by: [text])
+    } else {
+      filteredCafe.removeAll()
+    }
+    collectionView.reloadData()
   }
 }
