@@ -12,7 +12,7 @@ struct Cafe : Codable {
   let title : String
   let description : String
   let location : Location
-  let isFavorite : Bool
+  var isFavorite : Bool
   
   struct Location : Codable {
     let address : String
